@@ -7,7 +7,7 @@ info:
   license:
     name: Apache 2.0
     url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
-host: zenodo.org
+host: sandbox.zenodo.org
 basePath: /api
 schemes:
   - https
@@ -528,24 +528,39 @@ definitions:
   Deposit:
     type: object
     properties:
+      conceptrecid:
+        type: integer
       created:
         type: string
         format: date-time
-      doi:
-        type: string
-      doi_url:
-        type: string
       files:
         type: array
         items:
           $ref: '#/definitions/DepositionFile'
       id:
         type: integer
-  NestedDepositMetadata:
-    type: object
-    properties:
+      links:
+        type: object
       metadata:
         $ref: '#/definitions/DepositMetadata'
+      modified:
+        type: string
+        format: date-time
+      owner:
+        type: integer
+      record_id:
+        type: integer
+      state:
+        type: string
+      submitted:
+        type: boolean
+      title:
+        type: string
+  NestedDepositMetadata:
+      type: object
+      properties:
+        metadata:
+          $ref: '#/definitions/DepositMetadata'
   DepositMetadata:
     type: object
     properties:
@@ -606,7 +621,7 @@ definitions:
       doi:
         type: string
       prereserve_doi:
-        type: boolean
+        type: object
       keywords:
         type: array
         items:
@@ -616,7 +631,7 @@ definitions:
       related_identifiers:
         type: array
         items:
-          type: string
+          $ref: '#/definitions/RelatedIdentifier'
       contributors:
         type: array
         items:
@@ -700,6 +715,25 @@ definitions:
     properties:
       id:
         type: string
+  RelatedIdentifier:
+    type: object
+    properties:
+      identifier:
+        type: string
+      relation:
+        enum:
+          - isCitedBy
+          - cites
+          - isSupplementTo
+          - isSupplementedBy
+          - isNewVersionOf
+          - isPreviousVersionOf
+          - isPartOf
+          - hasPart
+          - compiles
+          - isCompiledBy
+          - isIdenticalTo
+          - isAlternateIdentifier
   Grant:
     type: object
     properties:
