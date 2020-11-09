@@ -12,7 +12,7 @@ basePath: /api
 schemes:
   - https
 paths:
-  /communities:
+  /communities/:
     get:
       summary: List of communities
       description: ''
