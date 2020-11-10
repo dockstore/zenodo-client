@@ -14,6 +14,7 @@ public class ZenodoClientTest {
     public void testZenodoClient() throws ApiException {
         ApiClient client = new ApiClient();
         PreviewApi previewApi = new PreviewApi(client);
+        client.setDebugging(true);
         HashMap<String, Object> o = (HashMap<String, Object>)previewApi.listCommunities();
         Assert.assertTrue("not able to list communities as basic test", o != null && o.keySet().size() > 0);
     }
