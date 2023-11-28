@@ -67,6 +67,10 @@ public class EntryCreatorExample {
         // publish it
         ActionsApi actionsApi = new ActionsApi(client);
         Deposit publishedDeposit = actionsApi.publishDeposit(depositionID);
+
+        String conceptDoiUrl = publishedDeposit.getLinks().get("parent_doi");
+
+        System.out.println(conceptDoiUrl);
         System.out.println(publishedDeposit);
     }
 }
