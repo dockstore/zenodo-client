@@ -4,7 +4,7 @@
     <artifactId>zenodo-client</artifactId>
     <name>Zenodo client</name>
     <groupId>io.dockstore</groupId>
-    <version>0.3-SNAPSHOT</version>
+    <version>0.3</version>
     <packaging>pom</packaging>
 
     <modules>
@@ -52,7 +52,7 @@
         <connection>${github.url}</connection>
         <developerConnection>${github.url}</developerConnection>
         <url>${github.url}</url>
-      <tag>HEAD</tag>
+      <tag>0.3</tag>
   </scm>
 
     <repositories>
