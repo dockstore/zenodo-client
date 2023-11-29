@@ -3,14 +3,21 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>zenodo-client-generated</artifactId>
-    <version>0.2-SNAPSHOT</version>
+    <version>0.4-SNAPSHOT</version>
 
     <parent>
         <groupId>io.dockstore</groupId>
         <artifactId>zenodo-client</artifactId>
-        <version>0.2-SNAPSHOT</version>
+        <version>0.4-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
+
+    <licenses>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <url>https://www.apache.org/licenses/LICENSE-2.0</url>
+        </license>
+    </licenses>
 
     <build>
         <plugins>
@@ -30,7 +37,9 @@
                             <configOptions>
                                 <sourceFolder>src/gen/java/main</sourceFolder>
                                 <library>jersey2</library>
-                                <dateLibrary>java8</dateLibrary>
+                                <dateLibrary>java11</dateLibrary>
+                                <java8>true</java8>
+                                <java11>true</java11>
                                 <invokerPackage>io.dockstore.zenodo.client</invokerPackage>
                                 <modelPackage>io.dockstore.zenodo.client.model</modelPackage>
                                 <apiPackage>io.dockstore.zenodo.client.api</apiPackage>
@@ -38,6 +47,66 @@
                         </configuration>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>com.google.code.maven-replacer-plugin</groupId>
+                <artifactId>replacer</artifactId>
+                <version>1.5.3</version>
+                <executions>
+                    <execution>
+                        <id>replace1</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>replace</goal>
+                        </goals>
+                    </execution>
+                    <!-- not sure why swagger-codegen-maven-plugin runs in two phases -->
+                    <execution>
+                        <id>replace2</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>replace</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <includes>
+                        <include>${pom.basedir}/target/generated-sources/swagger/src/gen/java/**/*.java</include>
+                        <include>${pom.basedir}/target/generated-sources/swagger/src/main/java/**/*.java</include>
+                    </includes>
+                    <regex>false</regex>
+                    <replacements>
+                        <!-- for these jakarta replacements, we can do better after https://github.com/swagger-api/swagger-codegen/issues/11797 -->
+                        <replacement>
+                            <token>javax.annotation</token>
+                            <value>jakarta.annotation</value>
+                        </replacement>
+                        <replacement>
+                            <token>@javax.annotation</token>
+                            <value>@jakarta.annotation</value>
+                        </replacement>
+                        <replacement>
+                            <token>javax.validation</token>
+                            <value>jakarta.validation</value>
+                        </replacement>
+                        <replacement>
+                            <token>javax.ws</token>
+                            <value>jakarta.ws</value>
+                        </replacement>
+                        <replacement>
+                            <token>javax.servlet</token>
+                            <value>jakarta.servlet</value>
+                        </replacement>
+                        <replacement>
+                            <token>javax.xml.bind</token>
+                            <value>jakarta.xml.bind</value>
+                        </replacement>
+                        <replacement>
+                            <token>javax.xml.bind</token>
+                            <value>jakarta.xml.bind</value>
+                        </replacement>
+                    </replacements>
+                </configuration>
             </plugin>
             <plugin>
                 <artifactId>maven-clean-plugin</artifactId>
@@ -230,12 +299,10 @@
         <dependency>
             <groupId>org.glassfish.jersey.core</groupId>
             <artifactId>jersey-client</artifactId>
-            <version>${jersey-version}</version>
         </dependency>
         <dependency>
             <groupId>org.glassfish.jersey.media</groupId>
             <artifactId>jersey-media-json-jackson</artifactId>
-            <version>${jersey-version}</version>
             <exclusions>
                 <exclusion>
                     <groupId>com.fasterxml.jackson.jaxrs</groupId>
@@ -286,25 +353,17 @@
             </exclusions>
         </dependency>
 
-
         <dependency>
-            <groupId>org.glassfish.jersey.core</groupId>
-            <artifactId>jersey-common</artifactId>
+            <groupId>jakarta.ws.rs</groupId>
+            <artifactId>jakarta.ws.rs-api</artifactId>
         </dependency>
-
         <dependency>
             <groupId>com.fasterxml.jackson.datatype</groupId>
             <artifactId>jackson-datatype-jsr310</artifactId>
         </dependency>
         <dependency>
-            <groupId>jakarta.ws.rs</groupId>
-            <artifactId>jakarta.ws.rs-api</artifactId>
-            <version>2.1.6</version>
-        </dependency>
-        <dependency>
-            <groupId>org.glassfish.jersey.inject</groupId>
-            <artifactId>jersey-hk2</artifactId>
-            <version>2.31</version>
+            <groupId>org.glassfish.jersey.core</groupId>
+            <artifactId>jersey-common</artifactId>
         </dependency>
     </dependencies>
 

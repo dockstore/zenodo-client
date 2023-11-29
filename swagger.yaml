@@ -541,6 +541,8 @@ definitions:
         type: integer
       links:
         type: object
+        additionalProperties:
+          type: string
       metadata:
         $ref: '#/definitions/DepositMetadata'
       modified:
