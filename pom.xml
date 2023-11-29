@@ -15,7 +15,7 @@
     <licenses>
         <license>
            <name>Apache License, Version 2.0</name>
-           <url>http://www.apache.org/licenses/LICENSE-2.0</url>
+           <url>https://www.apache.org/licenses/LICENSE-2.0</url>
         </license>
     </licenses>
 
@@ -28,11 +28,11 @@
 	    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-        <dockstore-core.version>1.14.0-alpha.9</dockstore-core.version>
+        <dockstore-core.version>1.15.0-alpha.13</dockstore-core.version>
         <swagger-annotations-version>1.5.9</swagger-annotations-version>
         <assertj.version>3.6.2</assertj.version>
-        <jackson.version>2.13.5</jackson.version>
-        <jersey-version>2.39</jersey-version>
+        <jackson.version>2.15.2</jackson.version>
+        <jersey-version>3.0.11</jersey-version>
         <junit-version>4.12</junit-version>
         <logback.version>1.2.3</logback.version>
         <aws.version>1.11.86</aws.version>
@@ -55,11 +55,20 @@
       <tag>HEAD</tag>
   </scm>
 
+    <repositories>
+        <repository>
+            <id>artifacts.oicr.on.ca</id>
+            <name>artifacts.oicr.on.ca</name>
+            <url>https://artifacts.oicr.on.ca/artifactory/collab-release</url>
+        </repository>
+    </repositories>
+
+
     <distributionManagement>
         <repository>
             <id>artifacts.oicr.on.ca</id>
             <name>artifacts.oicr.on.ca-releases</name>
-            <url>http://artifacts.oicr.on.ca/artifactory/collab-release</url>
+            <url>https://artifacts.oicr.on.ca/artifactory/collab-release</url>
             <uniqueVersion>false</uniqueVersion>
         </repository>
     </distributionManagement>
